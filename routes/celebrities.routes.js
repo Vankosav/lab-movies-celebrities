@@ -5,19 +5,30 @@ const router = require("express").Router();
 
 // all your routes here
 router.get("/create", (req, res) => {
-           res.render("/celebrities/new-celebrity");
+           res.render("celebrities/new-celebrity.hbs");
 });
 
-router.post("/create", (req, res) => {
-    const newCelebrity = req.body;
+router.post("/create", async (req, res) => {
    
-    Celebrity.create(newCelebrity)
-      .then(() => {
+   try {
+        const newCelebrity = await Celebrity.create(req.body);
+        console.log("Celebrity created:", newCelebrity);
         res.redirect("/celebrities");
-      })
-      .catch((err) => {
-        res.render("/celebrities/new-celebrity", { err });
-  })
+      }
+      catch (err) {
+        console.log("Celebrity couldn't be added:", err);
+        res.redirect("/celebrities/create");
+  }
 });
+
+
+router.get("/", async (req, res) => {
+    try {
+        const celebrity = await Celebrity.find();
+    res.render("celebrities/celebrities.hbs", { celebrity} );
+} catch (error) {
+    res.send(error);
+}
+}); 
 
 module.exports = router;
