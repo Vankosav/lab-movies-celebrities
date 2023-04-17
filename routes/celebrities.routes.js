@@ -25,7 +25,7 @@ router.post("/create", async (req, res) => {
 router.get("/", async (req, res) => {
     try {
         const celebrity = await Celebrity.find();
-    res.render("celebrities/celebrities.hbs", { celebrity} );
+    res.render("celebrities/celebrities.hbs", { celebrity } );
 } catch (error) {
     res.send(error);
 }

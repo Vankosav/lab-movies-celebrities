@@ -6,10 +6,7 @@ const celebritySchema = new Schema (
       type: String,
       required: true
     },
-    occupation: {
-    type: String,
-    required: true
-  },
+    occupation: String,
     catchPhrase: String,
   },
 );
