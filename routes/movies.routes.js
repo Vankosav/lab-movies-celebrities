@@ -5,6 +5,8 @@ const Celebrity = require("../models/Celebrity.model");
 const router = require("express").Router();
 
 // all your routes here
+
+
 router.get("/create", (req, res) => {
     res.render("movies/new-movie.hbs");
 });
@@ -30,5 +32,25 @@ router.get("/", async (req, res) => {
     res.send(error);
 }
 }); 
+
+router.get("/:id", async (req, res) => {
+    try {
+        const { movieId } = req.params;
+        const movie = await Movie.findById(movieId).populate("cast");
+        console.log(movie);
+        res.render("movies/movie-details.hbs", { movie });
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  
+  router.post("/:id/delete", (req, res) => {
+    Movie.findByIdAndDelete(req.params.id)
+      .then(() => {
+        res.render("action-completed");
+      })
+      .catch((err) => console.log(err));
+  });
+  
 
 module.exports = router;
