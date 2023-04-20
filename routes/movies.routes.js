@@ -8,7 +8,12 @@ const router = require("express").Router();
 
 
 router.get("/create", (req, res) => {
-    res.render("movies/new-movie.hbs");
+    Celebrity.find()
+    .then((celebs) => {
+    res.render("movies/new-movie.hbs", { celebs });
+})
+.catch((err) => console.log(err));
+
 });
 
 router.post("/create", async (req, res) => {
@@ -33,24 +38,29 @@ router.get("/", async (req, res) => {
 }
 }); 
 
-router.get("/:id", async (req, res) => {
-    try {
-        const { movieId } = req.params;
-        const movie = await Movie.findById(movieId).populate("cast");
-        console.log(movie);
+router.get("/:id", (req, res) => {
+    Movie.findById(req.params.id).populate("cast")
+    .then((movie) => {
         res.render("movies/movie-details.hbs", { movie });
-      } catch (err) {
+      })
+       .catch ((err) => {
         console.log(err);
-      }
+      })
     });
   
-  router.post("/:id/delete", (req, res) => {
+router.post("/:id/delete", (req, res) => {
     Movie.findByIdAndDelete(req.params.id)
       .then(() => {
         res.render("action-completed");
       })
       .catch((err) => console.log(err));
   });
+
+router.get("/:id/edit", (req, res) => {
+    Movie.findById(req.params.id)
+    .then(movie => res.render("movies/edit-movie", {movie}))
+    .catch((error) => console.log(error))
+});
   
 
 module.exports = router;
