@@ -1,24 +1,28 @@
-<h1>{{ movie.title }}</h1>
-<p>Genre: {{ movie.genre }}</p>
-<p>Plot: {{ movie.plot }}</p>
+<div class="card" style="width: 50rem; background: rgb(255, 0, 212); margin: 150px">
+<h3 class="card-title" style="margin-left: 200px; margin-top: 20px">{{ movie.title }}</h1>
+<p class="card-text" style="margin-left: 100px">Genre: {{ movie.genre }}</p>
+<p class="card-text" style="margin-left: 100px">Plot: {{ movie.plot }}</p>
 
-<h3>Cast</h3>
-<ul>
+<div class="card-body">
+<h6 class="card-subtitle mb-2 text-body-secondary">Cast</h6>
+<ul class="list-group">
     {{#each movie.cast}}
-        <li>
-            <p>Name: {{ this.name }}</p>
-            <p>Occupation: {{ this.occupation }}</p>
-            <p>Catch Phrase: {{ this.catchPhrase }}</p>
+        <li class="list-group-item">
+            <p class="card-text">Name: {{ this.name }}</p>
+            <p class="card-text">Occupation: {{ this.occupation }}</p>
+            <p class="card-text">Catch Phrase: {{ this.catchPhrase }}</p>
         </li>
     {{/each}}
 </ul>
+</div>
 
 
 
 <form action="/movies/{{ movie._id }}/delete" method="post">
-  <button type="submit">Delete</button>
+  <button type="submit" type="button" class="btn btn-info" style="margin-left: 100px">Delete</button>
 </form>
-
+<br>
 <form action="/movies/{{ movie._id }}/edit" method="get">
-  <button type="submit">Edit</button>
+  <button type="submit" type="button" class="btn btn-info" style="margin-left: 100px; margin-bottom: 30px; padding-right:32px">Edit</button>
 </form>
+</div>

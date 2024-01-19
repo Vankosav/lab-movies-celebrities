@@ -1,6 +1,13 @@
-<h2>List of movies</h2>
+<div class="card" style="width: 18rem;">
+
+<h2 class="card-title" style="font: 12px; color:blue; padding: 10px">List of movies</h2>
 
 {{#each movies}}
-<li><a href="movies/{{ _id }}">{{this.title}}</a>
-
+<ul class="list-group list-group-flush">
+<li class="list-group-item"><a href="movies/{{ _id }}">{{this.title}}</a></li>
+ </ul>
 {{/each}}
+  
+    
+ 
+</div>

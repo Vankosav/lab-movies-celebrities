@@ -12,9 +12,6 @@ hbs.registerHelper('isSelected', function (currentValue, options) {
 });
 
 
-
-
-
 router.get("/create", (req, res) => {
     Celebrity.find()
     .then((celebs) => {
